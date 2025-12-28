@@ -1,0 +1,7 @@
+playwright==1.48.0
+pytest==8.3.3
+allure-pytest==2.15.2
+allure-python-commons==2.15.2
+pytest-html==4.1.1
+python-dotenv==1.0.1
+pydantic-settings~=2.12.0
