@@ -51,7 +51,11 @@ source .venv/bin/activate
 pip install -r requirements.txt
 playwright install
 ```
-4. Run tests:
+4. Install browsers for Playwright:
+```bash
+playwright install
+```
+5. Run tests:
 ```bash
 pytest
 ```
