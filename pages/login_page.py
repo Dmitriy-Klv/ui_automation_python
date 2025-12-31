@@ -7,6 +7,7 @@ class LoginPage(BasePage):
     LOGIN_BTN = "#login-button"
     ERROR_LOCATOR = "[data-test='error']"
     ERROR_MESSAGE = "Epic sadface: Sorry, this user has been locked out."
+    ERROR_INVALID_CREDENTIALS = "Epic sadface: Username and password do not match any user in this service"
 
     def __init__(self, page: Page):
         super().__init__(page)

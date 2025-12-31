@@ -1,3 +1,5 @@
+import time
+
 from pages.cart_page import CartPage
 from pages.login_page import LoginPage
 from pages.inventory_page import InventoryPage
@@ -40,8 +42,25 @@ def test_add_item_to_cart(playwright_page):
     login.perform_login(settings.test_username, settings.test_password)
 
     inventory_page.is_opened_base_page()
-    inventory_page.add_item_to_cart()
+    inventory_page.add_item_to_cart(InventoryPage.ADD_TO_CART_BTN_FIRST_ITEM)
     inventory_page.open_cart()
     cart_page.is_opened_cart_page()
 
     assert "Sauce Labs Backpack" in cart_page.get_items_in_cart()
+
+def test_remove_item_from_cart(playwright_page):
+    login = LoginPage(playwright_page)
+    inventory_page = InventoryPage(playwright_page)
+    cart_page = CartPage(playwright_page)
+
+    login.open()
+    login.perform_login(settings.test_username, settings.test_password)
+
+    inventory_page.is_opened_base_page()
+    inventory_page.add_item_to_cart(InventoryPage.ADD_TO_CART_BTN_FIRST_ITEM)
+    inventory_page.open_cart()
+    cart_page.is_opened_cart_page()
+
+    cart_page.remove_backpack()
+    assert  cart_page.get_cart_items_count() == 0
+
