@@ -13,7 +13,7 @@ def test_login(playwright_page):
     login.open()
     login.perform_login(settings.test_username, settings.test_password)
 
-    assert inventory.is_opened()
+    assert inventory.is_opened_base_page
 
 def test_locked_out_user(playwright_page):
     login = LoginPage(playwright_page)
