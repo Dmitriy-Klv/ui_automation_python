@@ -3,6 +3,7 @@ from pages.base_page import BasePage
 class CartPage(BasePage):
     TITLE = ".title"
     REMOVE_BACKPACK_BTN = "#remove-sauce-labs-backpack"
+    CHECKOUT_BTN = "#checkout"
 
     def is_opened_cart_page(self) -> bool:
         self.should_have_text(self.TITLE, "Your Cart")
@@ -27,4 +28,7 @@ class CartPage(BasePage):
             float(prices.nth(i).inner_text().replace("$", ""))
             for i in range(prices.count())
         )
+
+    def click_checkout(self):
+        self.click(self.CHECKOUT_BTN)
 
