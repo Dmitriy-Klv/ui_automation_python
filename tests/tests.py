@@ -6,6 +6,7 @@ from pages.checkout_page import CheckoutPage
 from pages.login_page import LoginPage
 from pages.inventory_page import InventoryPage
 from config.settings import settings
+from pages.CheckoutOverviewPage import CheckoutOverviewPage
 
 
 def test_login(playwright_page):
@@ -125,3 +126,27 @@ def test_checkout_without_first_name(playwright_page):
 
     error_text = checkout.get_error_message()
     assert error_text == checkout.ERROR_FIRST_NAME_REQUIRED
+
+def test_check_total_sum(playwright_page):
+    login = LoginPage(playwright_page)
+    inventory = InventoryPage(playwright_page)
+    cart = CartPage(playwright_page)
+    checkout = CheckoutPage(playwright_page)
+
+    login.open()
+    login.perform_login(settings.test_username, settings.test_password)
+
+    inventory.add_item_to_cart(InventoryPage.ADD_TO_CART_BTN_FIRST_ITEM)
+    inventory.open_cart()
+    cart.is_opened_cart_page()
+    cart.click_checkout()
+
+    checkout.fill_checkout_info("", "Anderson", "12345")
+
+    overview = CheckoutOverviewPage(playwright_page)
+
+    item_total = overview.get_item_total()
+    tax = overview.get_tax()
+    total = overview.get_total()
+
+    assert round(item_total + tax, 2) == total
