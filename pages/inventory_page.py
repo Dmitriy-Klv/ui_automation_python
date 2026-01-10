@@ -18,3 +18,7 @@ class InventoryPage(BasePage):
 
     def open_cart(self):
         self.click(self.CART_ICON)
+
+    def add_to_cart_all(self):
+        for btn in self.page.query_selector_all("button[id^='add-to-cart']"):
+            btn.click()

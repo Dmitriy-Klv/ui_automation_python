@@ -32,3 +32,13 @@ class CartPage(BasePage):
     def click_checkout(self):
         self.click(self.CHECKOUT_BTN)
 
+    def remove_all(self):
+        for btn in self.page.query_selector_all("button[id^='remove']"):
+            btn.click()
+
+    def get_items_count(self):
+        return len(self.page.query_selector_all(".cart_item"))
+
+    def is_cart_empty(self):
+        return self.get_items_count() == 0
+

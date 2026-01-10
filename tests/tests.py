@@ -148,3 +148,21 @@ def test_check_total_sum(playwright_page):
     total = overview.get_total()
 
     assert round(item_total + tax, 2) == total
+
+
+def test_clear_cart(playwright_page):
+    login = LoginPage(playwright_page)
+    login.open()
+
+    login.open()
+    login.perform_login(settings.test_username, settings.test_password)
+
+    inventory = InventoryPage(playwright_page)
+    inventory.add_to_cart_all()
+    inventory.open_cart()
+
+    cart = CartPage(playwright_page)
+    cart.remove_all()
+
+    assert cart.is_cart_empty()
+
