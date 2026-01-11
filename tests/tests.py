@@ -158,11 +158,22 @@ def test_clear_cart(playwright_page):
     login.perform_login(settings.test_username, settings.test_password)
 
     inventory = InventoryPage(playwright_page)
-    inventory.add_to_cart_all()
+    inventory.get_all_prices()
     inventory.open_cart()
 
     cart = CartPage(playwright_page)
     cart.remove_all()
 
     assert cart.is_cart_empty()
+
+def test_sort_products_by_price_low_to_high(playwright_page):
+    login = LoginPage(playwright_page)
+    login.open()
+    login.perform_login(settings.test_username, settings.test_password)
+
+    inventory = InventoryPage(playwright_page)
+    inventory.sort_by("Price (low to high)")
+
+    prices = inventory.get_all_prices()
+    assert prices == sorted(prices)
 
