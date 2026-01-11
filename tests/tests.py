@@ -177,3 +177,16 @@ def test_sort_products_by_price_low_to_high(playwright_page):
     prices = inventory.get_all_prices()
     assert prices == sorted(prices)
 
+def test_cart_counter_increment(playwright_page):
+    login = LoginPage(playwright_page)
+    login.open()
+    login.perform_login(settings.test_username, settings.test_password)
+
+    inventory = InventoryPage(playwright_page)
+
+    inventory.add_item_to_cart(inventory.ADD_TO_CART_BTN_FIRST_ITEM)
+
+    cart_count = playwright_page.locator(".shopping_cart_badge").text_content()
+    assert cart_count == "1"
+
+
