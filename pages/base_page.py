@@ -19,3 +19,7 @@ class BasePage:
 
     def should_have_text(self, selector: str, text: str):
         expect(self.locator(selector)).to_have_text(text)
+
+    def get_text(self, locator: str) -> str:
+        return self.page.locator(locator).inner_text().strip()
+
