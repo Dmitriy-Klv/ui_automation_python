@@ -1,3 +1,5 @@
+import time
+
 from pages.cart_page import CartPage
 from pages.checkout_complete_page import CheckoutCompletePage
 from pages.checkout_page import CheckoutPage
