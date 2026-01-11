@@ -10,15 +10,15 @@ class InventoryPage(BasePage):
         self.should_have_text(self.TITLE, "Products")
         return True
 
-    # def add_item_to_cart(self):
-    #     self.click(self.ADD_TO_CART_BTN_FIRST_ITEM)
-
     def add_item_to_cart(self, add_button_locator):
         self.click(add_button_locator)
 
     def open_cart(self):
         self.click(self.CART_ICON)
 
-    def add_to_cart_all(self):
-        for btn in self.page.query_selector_all("button[id^='add-to-cart']"):
-            btn.click()
+    def get_all_prices(self):
+        prices = self.page.locator(".inventory_item_price").all_text_contents()
+        return [float(p.replace("$", "")) for p in prices]
+
+    def sort_by(self, label_text):
+        self.page.locator("select.product_sort_container").select_option(label=label_text)
