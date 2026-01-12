@@ -3,8 +3,10 @@ from pages.base_page import BasePage
 class InventoryPage(BasePage):
     TITLE = ".title"
     ADD_TO_CART_BTN_FIRST_ITEM = "//button[contains(@data-test,'backpack')]"
-    ADD_TO_CART_BTN_SECOND_ITEM = "//button[contains(@data-test,'light')]]"
+    ADD_TO_CART_BTN_SECOND_ITEM = "//button[contains(@data-test,'light')]"
     CART_ICON = "//*[@class='shopping_cart_link']"
+    BURGER_MENU_BTN = "//button[@id='react-burger-menu-btn']"
+    LOGOUT_LINK = "//a[@id='logout_sidebar_link']"
 
     def is_opened_base_page(self) -> bool:
         self.should_have_text(self.TITLE, "Products")

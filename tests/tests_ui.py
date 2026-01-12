@@ -141,7 +141,8 @@ def test_check_total_sum(playwright_page):
     cart.is_opened_cart_page()
     cart.click_checkout()
 
-    checkout.fill_checkout_info("", "Anderson", "12345")
+    checkout.fill_checkout_info("Alex", "Anderson", "12345")
+    checkout.click_continue()
 
     overview = CheckoutOverviewPage(playwright_page)
 
