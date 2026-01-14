@@ -155,7 +155,6 @@ def test_check_total_sum(playwright_page):
 
 def test_clear_cart(playwright_page):
     login = LoginPage(playwright_page)
-    login.open()
 
     login.open()
     login.perform_login(settings.test_username, settings.test_password)
@@ -191,5 +190,3 @@ def test_cart_counter_increment(playwright_page):
 
     cart_count = playwright_page.locator(".shopping_cart_badge").text_content()
     assert cart_count == "1"
-
-
