@@ -5,8 +5,8 @@ PROJECT_ROOT = Path(__file__).parent.parent.resolve()
 ENV_FILE = PROJECT_ROOT / ".env"
 
 class Settings(BaseSettings):
-    test_username: str = "standard_user"
-    test_password: str = "secret_sauce"
+    test_username: str
+    test_password: str
 
     model_config = SettingsConfigDict(
         env_file=ENV_FILE,
