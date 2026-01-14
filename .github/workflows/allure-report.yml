@@ -31,8 +31,16 @@ jobs:
 
       - name: Create .env file from secrets
         run: |
-          echo "TEST_USERNAME=${{ secrets.TEST_USERNAME }}" > .env
-          echo "TEST_PASSWORD=${{ secrets.TEST_PASSWORD }}" >> .env
+          cat > .env << EOF
+          TEST_USERNAME=${{ secrets.TEST_USERNAME }}
+          TEST_PASSWORD=${{ secrets.TEST_PASSWORD }}
+          EOF
+
+      - name: Verify .env was created (debug)
+        run: |
+          echo "=== .env content in CI ==="
+          cat .env || echo "File .env was not created!"
+          echo "=========================="
 
       - name: Install Playwright
         run: |
