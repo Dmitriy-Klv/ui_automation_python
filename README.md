@@ -12,7 +12,10 @@ the public demo site: [https://www.saucedemo.com](https://www.saucedemo.com).
 The framework includes:  
 - Advanced reporting with **Allure**  
 - **CI/CD integration** via GitHub Actions  
-- Environment configuration management using **Python-dotenv** and **Pydantic-settings**  
+- Environment configuration management using **Python-dotenv** and **Pydantic-settings**
+- Local development uses `.env` file in the project root for credentials and configuration variables.
+- CI/CD pipelines use GitHub Actions secrets (`TEST_USERNAME` and `TEST_PASSWORD`) to securely provide credentials to tests.
+- Pydantic `Settings()` automatically reads values from the environment or `.env` file.
 ## 🔧 Tech Stack
 - Python 3.11+  
 - Playwright (synchronous API for UI automation)  
