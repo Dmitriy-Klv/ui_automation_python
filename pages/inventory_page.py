@@ -7,6 +7,7 @@ class InventoryPage(BasePage):
     CART_ICON = "//*[@class='shopping_cart_link']"
     BURGER_MENU_BTN = "//button[@id='react-burger-menu-btn']"
     LOGOUT_LINK = "//a[@id='logout_sidebar_link']"
+    CART_BADGE = ".shopping_cart_badge"
 
     def is_opened_base_page(self) -> bool:
         self.should_have_text(self.TITLE, "Products")
@@ -28,3 +29,8 @@ class InventoryPage(BasePage):
     def logout(self):
         self.page.click(self.BURGER_MENU_BTN)
         self.page.click(self.LOGOUT_LINK)
+
+    def get_cart_badge_value(self) -> int:
+        if self.page.locator(self.CART_BADGE).is_visible():
+            return int(self.page.locator(self.CART_BADGE).text_content())
+        return 0

@@ -203,3 +203,16 @@ def test_logout_burger_menu(playwright_page):
 
     playwright_page.go_back()
     assert login.is_opened(), "User should not access inventory after logout"
+
+def test_cart_icon_counter_for_two_items(playwright_page):
+    login = LoginPage(playwright_page)
+    login.open()
+    login.perform_login(settings.test_username, settings.test_password)
+
+    inventory = InventoryPage(playwright_page)
+    inventory.is_opened_base_page()
+
+    inventory.add_item_to_cart(inventory.ADD_TO_CART_BTN_FIRST_ITEM)
+    inventory.add_item_to_cart(inventory.ADD_TO_CART_BTN_SECOND_ITEM)
+
+    assert inventory.get_cart_badge_value() == 2
