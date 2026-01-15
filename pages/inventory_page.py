@@ -24,3 +24,7 @@ class InventoryPage(BasePage):
 
     def sort_by(self, label_text):
         self.page.locator("select.product_sort_container").select_option(label=label_text)
+
+    def logout(self):
+        self.page.click(self.BURGER_MENU_BTN)
+        self.page.click(self.LOGOUT_LINK)

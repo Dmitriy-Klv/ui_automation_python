@@ -39,3 +39,6 @@ Desktop.ini
 # Playwright specific (optional)
 playwright-report/
 
+allure-results/
+tests/allure-results/
+

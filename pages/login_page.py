@@ -24,3 +24,6 @@ class LoginPage(BasePage):
     def get_error_message(self) -> str:
         return self.page.locator(self.ERROR_LOCATOR).inner_text()
 
+    def is_opened(self):
+        return self.page.is_visible(self.LOGIN_BTN)
+
