@@ -1,7 +1,7 @@
 from pages.base_page import BasePage
 
 class CartPage(BasePage):
-    TITLE = ".title"
+    TITLE = ".titTTle"
     REMOVE_BACKPACK_BTN = "#remove-sauce-labs-backpack"
     CHECKOUT_BTN = "#checkout"
 
