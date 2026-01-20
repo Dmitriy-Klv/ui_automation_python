@@ -4,6 +4,7 @@ class CartPage(BasePage):
     TITLE = ".title"
     REMOVE_BACKPACK_BTN = "#remove-sauce-labs-backpack"
     CHECKOUT_BTN = "#checkout"
+    CONTINUE_SHOPPING_BTN = "#continue-shopping"
 
     def is_opened_cart_page(self) -> bool:
         self.should_have_text(self.TITLE, "Your Cart")
@@ -41,4 +42,7 @@ class CartPage(BasePage):
 
     def is_cart_empty(self):
         return self.get_items_count() == 0
+
+    def click_continue_shopping(self):
+        self.click(self.CONTINUE_SHOPPING_BTN)
 
