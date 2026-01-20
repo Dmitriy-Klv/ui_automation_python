@@ -68,3 +68,25 @@ class TestShoppingCart:
         cart.remove_all()
 
         assert cart.is_cart_empty()
+
+    def test_continue_shopping_keeps_cart_state(self, playwright_page):
+        login = LoginPage(playwright_page)
+        login.open()
+        login.perform_login(settings.test_username, settings.test_password)
+
+        inventory = InventoryPage(playwright_page)
+        inventory.is_opened_base_page()
+
+        inventory.add_item_to_cart(inventory.ADD_TO_CART_BTN_FIRST_ITEM)
+        assert inventory.get_cart_badge_value() == 1
+
+        inventory.open_cart()
+
+        cart = CartPage(playwright_page)
+        cart.is_opened_cart_page()
+        assert cart.get_cart_items_count() == 1
+
+        cart.click_continue_shopping()
+
+        inventory.is_opened_base_page()
+        assert inventory.get_cart_badge_value() == 1
