@@ -8,6 +8,7 @@ class InventoryPage(BasePage):
     BURGER_MENU_BTN = "//button[@id='react-burger-menu-btn']"
     LOGOUT_LINK = "//a[@id='logout_sidebar_link']"
     CART_BADGE = ".shopping_cart_badge"
+    ITEM_NAME_BACKPACK = "//div[contains(@class,'inventory_item_name') and contains(text(),'Backpack')]"
 
     def is_opened_base_page(self) -> bool:
         self.should_have_text(self.TITLE, "Products")
@@ -34,3 +35,6 @@ class InventoryPage(BasePage):
         if self.page.locator(self.CART_BADGE).is_visible():
             return int(self.page.locator(self.CART_BADGE).text_content())
         return 0
+
+    def open_backpack_details(self):
+        self.click(self.ITEM_NAME_BACKPACK)
