@@ -27,3 +27,10 @@ class LoginPage(BasePage):
     def is_opened(self):
         return self.page.is_visible(self.LOGIN_BTN)
 
+    def get_username_field_value(self) -> str:
+        return self.page.locator("#user-name").input_value()
+
+    def get_password_field_value(self) -> str:
+        return self.page.locator("#password").input_value()
+
+
