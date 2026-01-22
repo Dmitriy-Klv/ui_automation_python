@@ -38,3 +38,6 @@ class InventoryPage(BasePage):
 
     def open_backpack_details(self):
         self.click(self.ITEM_NAME_BACKPACK)
+
+    def is_burger_menu_visible(self) -> bool:
+        return self.page.locator(self.BURGER_MENU_BTN).is_visible()
