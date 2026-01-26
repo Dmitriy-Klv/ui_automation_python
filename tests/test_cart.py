@@ -90,3 +90,34 @@ class TestShoppingCart:
 
         inventory.is_opened_base_page()
         assert inventory.get_cart_badge_value() == 1
+
+    def test_cart_badge_persistence_after_refresh(self, playwright_page):
+        login = LoginPage(playwright_page)
+        cart = CartPage(playwright_page)
+        inventory = InventoryPage(playwright_page)
+
+        login.open()
+        login.perform_login(settings.test_username, settings.test_password)
+
+        inventory.is_opened_base_page()
+
+        product1 = inventory.add_product_to_cart_by_index(0)
+        product2 = inventory.add_product_to_cart_by_index(1)
+
+        assert inventory.get_cart_badge_count() == 2
+
+        playwright_page.reload()
+
+        assert inventory.get_cart_badge_count() == 2
+
+        inventory.open_cart()
+
+        cart_items = cart.get_cart_items()
+        names = [item["name"] for item in cart_items]
+        prices = [item["price"] for item in cart_items]
+
+        assert product1["name"] in names
+        assert product2["name"] in names
+
+        assert product1["price"] in prices
+        assert product2["price"] in prices

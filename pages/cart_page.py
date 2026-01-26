@@ -46,3 +46,10 @@ class CartPage(BasePage):
     def click_continue_shopping(self):
         self.click(self.CONTINUE_SHOPPING_BTN)
 
+    def get_cart_items(self) -> list[dict]:
+        items = []
+        for card in self.page.locator(".cart_item").all():
+            name = card.locator(".inventory_item_name").inner_text()
+            price = card.locator(".inventory_item_price").inner_text()
+            items.append({"name": name, "price": price})
+        return items
