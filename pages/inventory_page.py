@@ -41,3 +41,15 @@ class InventoryPage(BasePage):
 
     def is_burger_menu_visible(self) -> bool:
         return self.page.locator(self.BURGER_MENU_BTN).is_visible()
+
+
+    def add_product_to_cart_by_index(self, index: int) -> dict:
+        card = self.page.locator(".inventory_item").nth(index)
+        name = card.locator(".inventory_item_name").inner_text()
+        price = card.locator(".inventory_item_price").inner_text()
+        card.locator("button:has-text('Add to cart')").click()
+        return {"name": name, "price": price}
+
+    def get_cart_badge_count(self) -> int:
+        badge = self.page.locator(".shopping_cart_badge")
+        return int(badge.inner_text()) if badge.is_visible() else 0
