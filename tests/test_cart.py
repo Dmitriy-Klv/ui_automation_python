@@ -121,3 +121,25 @@ class TestShoppingCart:
 
         assert product1["price"] in prices
         assert product2["price"] in prices
+
+    def test_prevent_adding_duplicate_product(self, playwright_page):
+         login = LoginPage(playwright_page)
+         inventory = InventoryPage(playwright_page)
+         cart = CartPage(playwright_page)
+
+         login.open()
+         login.perform_login(settings.test_username, settings.test_password)
+         inventory.is_opened_base_page()
+
+         inventory.add_item_to_cart(InventoryPage.ADD_TO_CART_BTN_FIRST_ITEM)
+
+         assert inventory.is_remove_button_visible(InventoryPage.ADD_TO_CART_BTN_FIRST_ITEM)
+
+         assert inventory.get_cart_badge_value() == 1
+
+         inventory.open_cart()
+         cart.is_opened_cart_page()
+
+         cart_items = cart.get_cart_items()
+         product_names = [item["name"] for item in cart_items]
+         assert product_names.count("Sauce Labs Backpack") == 1

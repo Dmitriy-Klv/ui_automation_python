@@ -1,3 +1,4 @@
+from playwright.sync_api import expect
 from pages.base_page import BasePage
 
 class InventoryPage(BasePage):
@@ -32,16 +33,18 @@ class InventoryPage(BasePage):
         self.page.click(self.LOGOUT_LINK)
 
     def get_cart_badge_value(self) -> int:
-        if self.page.locator(self.CART_BADGE).is_visible():
-            return int(self.page.locator(self.CART_BADGE).text_content())
-        return 0
+            badge = self.page.locator(self.CART_BADGE)
+            try:
+                expect(badge).to_be_visible(timeout=3000)
+                return int(badge.inner_text())
+            except:
+                return 0
 
     def open_backpack_details(self):
         self.click(self.ITEM_NAME_BACKPACK)
 
     def is_burger_menu_visible(self) -> bool:
         return self.page.locator(self.BURGER_MENU_BTN).is_visible()
-
 
     def add_product_to_cart_by_index(self, index: int) -> dict:
         card = self.page.locator(".inventory_item").nth(index)
@@ -53,3 +56,8 @@ class InventoryPage(BasePage):
     def get_cart_badge_count(self) -> int:
         badge = self.page.locator(".shopping_cart_badge")
         return int(badge.inner_text()) if badge.is_visible() else 0
+
+    def is_remove_button_visible(self, add_button_locator) -> bool:
+        button = self.page.locator(add_button_locator)
+        expect(button).to_have_text("Remove", timeout=3000)
+        return True
