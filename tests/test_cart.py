@@ -1,3 +1,4 @@
+from pages.inventory_item_page import InventoryItemPage
 from pages.login_page import LoginPage
 from pages.inventory_page import InventoryPage
 from pages.cart_page import CartPage
@@ -143,3 +144,29 @@ class TestShoppingCart:
          cart_items = cart.get_cart_items()
          product_names = [item["name"] for item in cart_items]
          assert product_names.count("Sauce Labs Backpack") == 1
+
+    def test_product_detail_to_cart_and_back(self, playwright_page):
+        login = LoginPage(playwright_page)
+        inventory = InventoryPage(playwright_page)
+        item_details = InventoryItemPage(playwright_page)
+        cart = CartPage(playwright_page)
+
+        login.open()
+        login.perform_login(settings.test_username, settings.test_password)
+
+        inventory.open_backpack_details()
+        assert item_details.is_opened()
+        expected_name = item_details.get_item_name()
+
+        item_details.click_add_or_remove()
+
+        inventory.open_cart()
+
+        assert cart.is_opened_cart_page()
+        items_in_cart = cart.get_items_in_cart()
+        assert expected_name in items_in_cart, f"Expected product {expected_name} not found in cart: {items_in_cart}"
+
+        cart.click_continue_shopping()
+
+        assert inventory.is_opened_base_page()
+        assert inventory.get_cart_badge_count() == 1
