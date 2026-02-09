@@ -9,11 +9,6 @@ This project is a robust **UI test automation framework** built with **Python**,
 It serves as an educational example, practice tool, and portfolio showcase. Tests are executed against 
 the public demo site: [https://www.saucedemo.com](https://www.saucedemo.com).  
 
-## 📊 Test Reports
-
-Allure reports are generated during CI runs and published via GitHub Pages for public access.
-
-🔗 **Latest Report:** [Allure Dashboard](https://Dmitriy-Klv.github.io/ui_automation_python/)
 
 The framework includes:  
 - Advanced reporting with **Allure**  
@@ -103,7 +98,7 @@ allure serve allure-results
 
 ### Allure Reports
 - Detailed reports with history, trends, and attachments  
-- Live report: [https://dmitriy-klv.github.io/ui_automation_python/](https://dmitriy-klv.github.io/ui_automation_python/)  
+-  **Latest Report:** [Allure Dashboard](https://Dmitriy-Klv.github.io/ui_automation_python/)
 - Latest report deployed automatically after each CI run
 
 ## 🌐 Tested Application
