@@ -8,6 +8,7 @@ class CheckoutPage(BasePage):
     FINISH_BTN = "#finish"
     ERROR_MESSAGE = "[data-test='error']"
     ERROR_FIRST_NAME_REQUIRED = "Error: First Name is required"
+    CANCEL_BTN = "#cancel"
 
     def fill_checkout_info(self, first_name: str, last_name: str, postal_code: str):
         self.fill(self.FIRST_NAME_INPUT, first_name)
@@ -22,3 +23,6 @@ class CheckoutPage(BasePage):
 
     def get_error_message(self) -> str:
         return self.get_text(self.ERROR_MESSAGE)
+
+    def click_cancel(self):
+        self.click(self.CANCEL_BTN)
