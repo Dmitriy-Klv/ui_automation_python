@@ -76,3 +76,25 @@ class TestCheckoutFlow:
         total = overview.get_total()
 
         assert round(item_total + tax, 2) == total
+
+    def test_cancel_checkout_and_return_to_cart(self, playwright_page):
+        login = LoginPage(playwright_page)
+        inventory = InventoryPage(playwright_page)
+        cart = CartPage(playwright_page)
+        checkout = CheckoutPage(playwright_page)
+
+        login.open()
+        login.perform_login(settings.test_username, settings.test_password)
+        inventory.add_item_to_cart(InventoryPage.ADD_TO_CART_BTN_FIRST_ITEM)
+
+        inventory.open_cart()
+        cart.is_opened_cart_page()
+        initial_cart_items = cart.get_items_in_cart()
+
+        cart.click_checkout()
+
+        checkout.click_cancel()
+
+        assert cart.is_opened_cart_page(), "The user was not redirected back to the trash."
+        current_cart_items = cart.get_items_in_cart()
+        assert current_cart_items == initial_cart_items, f"The contents of the cart have changed: {current_cart_items}"
