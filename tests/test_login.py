@@ -26,3 +26,12 @@ class TestLogin:
         login.perform_login("invalidlogin", "invalidpassword")
         error_text = login.get_error_message()
         assert error_text == login.ERROR_INVALID_CREDENTIALS
+
+    def test_login_locked_out_user(self, playwright_page):
+        login = LoginPage(playwright_page)
+        login.open()
+
+        login.perform_login("locked_out_user",  settings.test_password)
+
+        error_text = login.get_error_message()
+        assert error_text == login.ERROR_MESSAGE
