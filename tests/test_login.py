@@ -31,7 +31,7 @@ class TestLogin:
         login = LoginPage(playwright_page)
         login.open()
 
-        login.perform_login("locked_out_user",  settings.test_password)
+        login.perform_login("standard_user", )
 
         error_text = login.get_error_message()
         assert error_text == login.ERROR_MESSAGE
